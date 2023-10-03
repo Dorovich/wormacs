@@ -1,8 +1,8 @@
 #+options: date:nil \n:t author:nil toc:nil
 #+title: Mi configuración de GNU Emacs
 
-[[file:pics/pic1.png]]
 + Pantalla de inicio.
+[[file:pics/pic1.png]]
 
-[[file:pics/pic2.png]]
 + Edición de un archivo.
+[[file:pics/pic2.png]]
