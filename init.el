@@ -3,8 +3,9 @@
 (defconst emacs-tmp-dir
   (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
 
-;; UNI
+;; EXTRAS
 ;(load-file (expand-file-name "extras/uni.el" user-emacs-directory))
+;(load-file (expand-file-name "extras/portatil.el" user-emacs-directory))
 
 (set-face-attribute 'default nil :font my-font :height my-size)
 (set-face-attribute 'fixed-pitch nil :font my-font :height my-size)
