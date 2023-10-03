@@ -1,5 +1,11 @@
 (defvar my-font "mononoki NF")
 (defvar my-size 150)
+(defconst emacs-tmp-dir
+  (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
+
+;; UNI
+;(load-file (expand-file-name "extras/uni.el" user-emacs-directory))
+
 (set-face-attribute 'default nil :font my-font :height my-size)
 (set-face-attribute 'fixed-pitch nil :font my-font :height my-size)
 (set-face-attribute 'variable-pitch nil :font my-font :height my-size)
@@ -9,9 +15,6 @@
 
 (global-set-key (kbd "M-+") 'text-scale-increase)
 (global-set-key (kbd "M--") 'text-scale-decrease)
-
-(defconst emacs-tmp-dir
-  (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
 
 (setq load-prefer-newer t
       idle-update-delay 1.0

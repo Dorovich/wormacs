@@ -1,5 +1,7 @@
 #+options: date:nil \n:t author:nil toc:nil
-#+title: Mi configuración de GNU Emacs
+#+title: ~/.config/emacs
+
+Mi configuración de [[https://www.gnu.org/software/emacs/][GNU Emacs]].
 
 + Pantalla de inicio.
 [[file:pics/pic1.png]]
