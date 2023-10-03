@@ -41,7 +41,7 @@
       backup-directory-alist `((".*" . ,emacs-tmp-dir))
       custom-file (expand-file-name "custom.el" user-emacs-directory)
       dired-listing-switches "-AhgG --group-directories-first --time-style=+%d-%m-%y"
-      fancy-splash-image (expand-file-name "~/Descargas/deaths-head-smol.png")
+      fancy-splash-image (expand-file-name "deaths-head.png" user-emacs-directory)
       ;; ORG
       org-image-actual-width nil
       org-hide-leading-stars t
