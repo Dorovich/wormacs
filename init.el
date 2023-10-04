@@ -3,9 +3,9 @@
 (defconst emacs-tmp-dir
   (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
 
-;; AESTHETIC EXTRAS
-;(load-file (expand-file-name "extras/tema-uni.el" user-emacs-directory))
-;(load-file (expand-file-name "extras/tema-portatil.el" user-emacs-directory))
+;;; AESTHETIC EXTRAS
+;; (load-file (expand-file-name "extras/tema-uni.el" user-emacs-directory))
+;; (load-file (expand-file-name "extras/tema-portatil.el" user-emacs-directory))
 
 (set-face-attribute 'default nil :font my-font :height my-size)
 (set-face-attribute 'fixed-pitch nil :font my-font :height my-size)
@@ -129,6 +129,6 @@
   :config
   (which-key-mode 1))
 
-;; UTILITY EXTRAS
+;;; UTILITY EXTRAS
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory))
 (load-file (expand-file-name "extras/lisp.el" user-emacs-directory))
