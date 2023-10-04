@@ -1,11 +1,11 @@
-(defvar my-font "mononoki NF")
-(defvar my-size 150)
+(defvar my-font "mononoki NF") ; Recursive Mono Linear Static
+(defvar my-size 160) ; 160
 (defconst emacs-tmp-dir
   (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
 
-;; EXTRAS
-;(load-file (expand-file-name "extras/uni.el" user-emacs-directory))
-;(load-file (expand-file-name "extras/portatil.el" user-emacs-directory))
+;; AESTHETIC EXTRAS
+;(load-file (expand-file-name "extras/tema-uni.el" user-emacs-directory))
+;(load-file (expand-file-name "extras/tema-portatil.el" user-emacs-directory))
 
 (set-face-attribute 'default nil :font my-font :height my-size)
 (set-face-attribute 'fixed-pitch nil :font my-font :height my-size)
@@ -16,6 +16,8 @@
 
 (global-set-key (kbd "M-+") 'text-scale-increase)
 (global-set-key (kbd "M--") 'text-scale-decrease)
+(global-set-key (kbd "<mouse-8>") 'previous-buffer)
+(global-set-key (kbd "<mouse-9>") 'next-buffer)
 
 (setq load-prefer-newer t
       idle-update-delay 1.0
@@ -88,6 +90,8 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+(add-hook 'ibuffer-mode-hook (lambda ()
+                               (ibuffer-switch-to-saved-filter-groups "default")))
 
 (with-eval-after-load 'org
   (dolist
@@ -112,7 +116,6 @@
 
 ;; PACKAGES
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
@@ -125,3 +128,7 @@
   :ensure t
   :config
   (which-key-mode 1))
+
+;; UTILITY EXTRAS
+(load-file (expand-file-name "extras/dev.el" user-emacs-directory))
+(load-file (expand-file-name "extras/lisp.el" user-emacs-directory))
