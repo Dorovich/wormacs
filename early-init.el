@@ -7,6 +7,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (tooltip-mode -1)
+(put 'dired-find-alternate-file 'disabled nil)
 (when (cdr command-line-args)
   (setq inhibit-startup-screen t))
 (setq default-frame-alist '((fullscreen . maximized)

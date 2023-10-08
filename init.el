@@ -11,8 +11,8 @@
 (set-face-attribute 'fixed-pitch nil :font my-font :height my-size)
 (set-face-attribute 'variable-pitch nil :font my-font :height my-size)
 
-(shell-command "setxkbmap -option caps:ctrl_modifier")
-(shell-command "xset r rate 300 35")
+(shell-command "setxkbmap -option caps:ctrl_modifier" nil)
+(shell-command "xset r rate 300 35" nil)
 
 (global-set-key (kbd "M-+") 'text-scale-increase)
 (global-set-key (kbd "M--") 'text-scale-decrease)
@@ -40,6 +40,7 @@
       frame-resize-pixelwise t
       echo-keystrokes 0.02
       show-paren-delay 0
+      completion-styles '(basic initials substring)
       current-language-environment "UTF-8"
       large-file-warning-threshold (* 35 1024 1024) ;; 20mb
       gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
@@ -47,7 +48,7 @@
       backup-directory-alist `((".*" . ,emacs-tmp-dir))
       custom-file (expand-file-name "custom.el" user-emacs-directory)
       dired-listing-switches "-AhgG --group-directories-first --time-style=+%d-%m-%y"
-      fancy-splash-image (expand-file-name "pics/deaths-head.png" user-emacs-directory)
+      fancy-splash-image (expand-file-name "pics/deaths-head-smol.png" user-emacs-directory)
       ;; ORG
       org-image-actual-width nil
       org-hide-leading-stars t
@@ -114,8 +115,20 @@
   (load-file user-init-file)
   (load-file user-init-file))
 
+(defun dired-open-file ()
+  "In dired, open the file named on this line."
+  (interactive)
+  (let* ((file (dired-get-filename nil t)))
+    (message "Opening %s..." file)
+    (call-process "xdg-open" nil 0 nil file)
+    (message "Opening %s done" file)))
+
 ;; PACKAGES
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
