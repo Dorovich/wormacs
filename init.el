@@ -97,14 +97,14 @@
 (with-eval-after-load 'org
   (dolist
       (face
-       '((org-level-1 1.3 ultra-bold)
-         (org-level-2 1.15 extra-bold)
-         (org-level-3 1.10 bold)
-         (org-level-4 1.07 semi-bold)
-         (org-level-5 1.04 normal)
-         (org-level-6 1.02 normal)
-         (org-level-7 1.01 normal)
-         (org-level-8 1.005 normal)))
+       '((org-level-1 1.4 bold)
+         (org-level-2 1.3 normal)
+         (org-level-3 1.2 normal)
+         (org-level-4 1.1 normal)
+         (org-level-5 1.1 normal)
+         (org-level-6 1.1 normal)
+         (org-level-7 1.1 normal)
+         (org-level-8 1.1 normal)))
     (set-face-attribute (nth 0 face) nil
                         :font my-font
                         :height (nth 1 face)
