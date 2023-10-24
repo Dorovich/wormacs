@@ -59,6 +59,10 @@
       org-fontify-whole-heading-line t
       org-return-follows-link t
       org-html-validation-link nil
+      org-export-preserve-breaks t
+      org-export-with-date nil
+      org-export-time-stamp-file nil
+      org-export-with-author nil
       ;; IBUFFER
       ibuffer-show-empty-filter-groups nil
       ibuffer-display-summary nil
