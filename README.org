@@ -1,5 +1,5 @@
-#+options: date:nil \n:t author:nil toc:nil
 #+title: ~/.config/emacs
+#+options: date:nil \n:t author:nil toc:nil
 
 Mi configuración de [[https://www.gnu.org/software/emacs/][GNU Emacs]].
 

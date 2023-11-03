@@ -1,4 +1,4 @@
-(defvar my-font "mononoki NF") ; Recursive Mono Linear Static
+(defvar my-font "mononoki NF")
 (defvar my-size 160) ; 160
 (defconst emacs-tmp-dir
   (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
@@ -40,6 +40,7 @@
       frame-resize-pixelwise t
       echo-keystrokes 0.02
       show-paren-delay 0
+      image-use-external-converter t
       completion-styles '(basic initials substring)
       current-language-environment "UTF-8"
       large-file-warning-threshold (* 35 1024 1024) ;; 20mb
@@ -51,18 +52,26 @@
       fancy-splash-image (expand-file-name "pics/butterfly-hd.png" user-emacs-directory)
       ;; ORG
       org-image-actual-width nil
+      org-pretty-entities t
       org-hide-leading-stars t
+      org-hide-macro-markers t
       org-startup-folded nil
       org-startup-indented t
+      org-startup-align-all-tables t
       org-fontify-done-headline t
       org-fontify-quote-and-verse-blocks t
       org-fontify-whole-heading-line t
+      org-src-fontify-natively t
       org-return-follows-link t
       org-html-validation-link nil
       org-export-preserve-breaks t
       org-export-with-date nil
       org-export-time-stamp-file nil
       org-export-with-author nil
+      org-image-actual-width 600
+      org-redisplay-inline-images nil
+      org-display-inline-images nil
+      org-ellipsis "…"
       ;; IBUFFER
       ibuffer-show-empty-filter-groups nil
       ibuffer-display-summary nil
@@ -99,16 +108,15 @@
                                (ibuffer-switch-to-saved-filter-groups "default")))
 
 (with-eval-after-load 'org
-  (dolist
-      (face
-       '((org-level-1 1.4 bold)
-         (org-level-2 1.3 normal)
-         (org-level-3 1.2 normal)
-         (org-level-4 1.1 normal)
-         (org-level-5 1.1 normal)
-         (org-level-6 1.1 normal)
-         (org-level-7 1.1 normal)
-         (org-level-8 1.1 normal)))
+  (dolist (face '((org-document-title 1.4 bold)
+                  (org-level-1 1.4 bold)
+                  (org-level-2 1.3 normal)
+                  (org-level-3 1.2 normal)
+                  (org-level-4 1.1 normal)
+                  (org-level-5 1.1 normal)
+                  (org-level-6 1.1 normal)
+                  (org-level-7 1.1 normal)
+                  (org-level-8 1.1 normal)))
     (set-face-attribute (nth 0 face) nil
                         :font my-font
                         :height (nth 1 face)
@@ -136,6 +144,13 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
+;; (use-package org-modern
+;;   :ensure t
+;;   :after org
+;;   :defer t
+;;   :hook (org-mode . org-modern-mode)
+;;   :hook (org-agenda-finalize . org-modern-agenda))
+
 (use-package modus-themes
   :ensure t
   :config
@@ -149,3 +164,8 @@
 ;;; UTILITY EXTRAS
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory))
 (load-file (expand-file-name "extras/lisp.el" user-emacs-directory))
+
+;;; OTRAS COSITAS
+;; https://config.phundrak.com/emacs.html
+;; https://opensource.com/article/20/1/emacs-rpgs
+;; https://github.com/zaeph/org-roll
