@@ -144,13 +144,6 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
-;; (use-package org-modern
-;;   :ensure t
-;;   :after org
-;;   :defer t
-;;   :hook (org-mode . org-modern-mode)
-;;   :hook (org-agenda-finalize . org-modern-agenda))
-
 (use-package modus-themes
   :ensure t
   :config
