@@ -1,6 +1,6 @@
 (defvar my-font-mono "mononoki NF")
 (defvar my-font-prose "IBM Plex Serif")
-(defvar my-font-size 160) ; 160
+(defvar my-font-size 160)
 (defconst emacs-tmp-dir
   (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
 
@@ -8,9 +8,9 @@
 ;; (load-file (expand-file-name "extras/tema-uni.el" user-emacs-directory))
 ;; (load-file (expand-file-name "extras/tema-portatil.el" user-emacs-directory))
 
-(set-face-attribute 'default nil :font my-font-mono :height my-font-size)
-(set-face-attribute 'fixed-pitch nil :font my-font-mono :height my-font-size)
-(set-face-attribute 'variable-pitch nil :font my-font-prose :height my-font-size)
+(set-face-attribute 'default nil :family my-font-mono :height my-font-size)
+(set-face-attribute 'fixed-pitch nil :family my-font-mono :height my-font-size)
+(set-face-attribute 'variable-pitch nil :family my-font-prose :height my-font-size)
 
 (shell-command "setxkbmap -option caps:ctrl_modifier" nil)
 (shell-command "xset r rate 300 35" nil)
@@ -122,8 +122,9 @@
 (add-hook 'ibuffer-mode-hook (lambda () (ibuffer-switch-to-saved-filter-groups "default")))
 (add-hook 'text-mode-hook (lambda () (variable-pitch-mode 1)))
 (add-hook 'org-mode-hook (lambda ()
-                           (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
-                           (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+                           (variable-pitch-mode 1)
+                           ;; (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+                           ;; (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
                            (dolist (face '((org-document-title 1.4 bold)
                                            (org-level-1 1.4 bold)
                                            (org-level-2 1.3 normal)
@@ -134,7 +135,7 @@
                                            (org-level-7 1.1 normal)
                                            (org-level-8 1.1 normal)))
                              (set-face-attribute (nth 0 face) nil
-                                                 :font my-font-prose
+                                                 ;; :font my-font-prose
                                                  :height (nth 1 face)
                                                  :weight (nth 2 face)))))
 
@@ -163,13 +164,24 @@
 (use-package modus-themes
   :ensure t
   :config
-  (load-theme 'modus-vivendi t)
-  (set-cursor-color "#dbc49b"))
+  (setq modus-themes-mixed-fonts t
+        modus-themes-common-palette-overrides '(;(cursor "#dbc49b")
+                                                (cursor yellow-faint)
+                                                (fg-heading-1 yellow-cooler)
+                                                (fg-heading-2 maroon)
+                                                (fg-heading-3 indigo)
+                                                (fg-heading-4 olive)))
+  (load-theme 'modus-vivendi t))
 
 (use-package which-key
   :ensure t
   :config
   (which-key-mode 1))
+
+(use-package beacon
+  :ensure t
+  :config
+  (beacon-mode 1))
 
 ;;; UTILITY EXTRAS
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory))
