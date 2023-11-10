@@ -121,23 +121,7 @@
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 (add-hook 'ibuffer-mode-hook (lambda () (ibuffer-switch-to-saved-filter-groups "default")))
 (add-hook 'text-mode-hook (lambda () (variable-pitch-mode 1)))
-(add-hook 'org-mode-hook (lambda ()
-                           (variable-pitch-mode 1)
-                           ;; (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
-                           ;; (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
-                           (dolist (face '((org-document-title 1.4 bold)
-                                           (org-level-1 1.4 bold)
-                                           (org-level-2 1.3 normal)
-                                           (org-level-3 1.2 normal)
-                                           (org-level-4 1.1 normal)
-                                           (org-level-5 1.1 normal)
-                                           (org-level-6 1.1 normal)
-                                           (org-level-7 1.1 normal)
-                                           (org-level-8 1.1 normal)))
-                             (set-face-attribute (nth 0 face) nil
-                                                 ;; :font my-font-prose
-                                                 :height (nth 1 face)
-                                                 :weight (nth 2 face)))))
+(add-hook 'org-mode-hook 'setup-org-ui)
 
 (defun reload-init-file ()
   (interactive)
@@ -151,6 +135,22 @@
     (message "Opening %s..." file)
     (call-process "xdg-open" nil 0 nil file)
     (message "Opening %s done" file)))
+
+(defun setup-org-ui ()
+  (variable-pitch-mode 1)
+  (org-bullets-mode 1)
+  (dolist (face '((org-document-title 1.4 bold)
+                  (org-level-1 1.4 bold)
+                  (org-level-2 1.3 bold)
+                  (org-level-3 1.2 bold)
+                  (org-level-4 1.1 bold)
+                  (org-level-5 1.1 normal)
+                  (org-level-6 1.1 normal)
+                  (org-level-7 1.1 normal)
+                  (org-level-8 1.1 normal)))
+    (set-face-attribute (nth 0 face) nil
+                        :height (nth 1 face)
+                        :weight (nth 2 face))))
 
 ;; PACKAGES
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
