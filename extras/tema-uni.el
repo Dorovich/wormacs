@@ -1,3 +1,4 @@
 (setq package-user-dir "~/dades/.emacs.d/elpa"
-      my-font "monospace"
-      my-size 120)
+      my-font-mono "monospace"
+      my-font-prose "DejaVu Serif"
+      my-font-size 120)

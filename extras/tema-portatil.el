@@ -1,3 +1,4 @@
-(setq my-font "mononoki Nerd Font"
-      my-size 120)
+(setq my-font-mono "mononoki Nerd Font"
+      my-font-prose "DejaVu Serif"
+      my-font-size 120)
 
