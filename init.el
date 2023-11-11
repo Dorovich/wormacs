@@ -4,7 +4,7 @@
 (defconst emacs-tmp-dir
   (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
 
-;;; AESTHETIC EXTRAS
+;;; OTHER THEMES
 ;; (load-file (expand-file-name "extras/tema-uni.el" user-emacs-directory))
 ;; (load-file (expand-file-name "extras/tema-portatil.el" user-emacs-directory))
 
@@ -15,12 +15,11 @@
 (shell-command "setxkbmap -option caps:ctrl_modifier" nil)
 (shell-command "xset r rate 300 35" nil)
 
-(global-set-key (kbd "M-+") 'text-scale-increase)
-(global-set-key (kbd "M--") 'text-scale-decrease)
 (global-set-key (kbd "<mouse-8>") 'previous-buffer)
 (global-set-key (kbd "<mouse-9>") 'next-buffer)
 (global-set-key (kbd "C-x r C-f") 'recentf-open-files)
 
+;;; SETTINGS
 (setq load-prefer-newer t
       idle-update-delay 1.0
       history-delete-duplicates t
@@ -31,7 +30,7 @@
       comp-async-report-warnings-errors nil
       frame-inhibit-implied-resize t
       auto-mode-case-fold nil
-      read-process-output-max (* 3 1024 1024) ;; 3mb
+      read-process-output-max (* 3 1024 1024) ; 3mb
       initial-major-mode 'fundamental-mode
       make-backup-files nil
       completion-ignore-case t
@@ -45,7 +44,7 @@
       image-use-external-converter t
       completion-styles '(basic initials substring)
       current-language-environment "UTF-8"
-      large-file-warning-threshold (* 35 1024 1024) ;; 20mb
+      large-file-warning-threshold (* 35 1024 1024) ; 35mb
       gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
       auto-save-file-name-transforms `((".*" ,emacs-tmp-dir t))
       backup-directory-alist `((".*" . ,emacs-tmp-dir))
@@ -104,12 +103,12 @@
               right-margin-width 1
               c-basic-offset 4)
 
-(global-auto-revert-mode t)
-(show-paren-mode)
+(global-auto-revert-mode 1)
+(show-paren-mode 1)
 (blink-cursor-mode 0)
 (set-fringe-mode 0)
 (delete-selection-mode 1)
-(display-time-mode 1)
+;; (display-time-mode 1)
 (fido-mode 1)
 (recentf-mode 1)
 
@@ -117,12 +116,13 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; HOOKS
+;;; HOOKS
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 (add-hook 'ibuffer-mode-hook (lambda () (ibuffer-switch-to-saved-filter-groups "default")))
 (add-hook 'text-mode-hook (lambda () (variable-pitch-mode 1)))
-(add-hook 'org-mode-hook 'setup-org-ui)
+(add-hook 'org-mode-hook (lambda () (variable-pitch-mode 1)))
 
+;;; FUNCTIONS
 (defun reload-init-file ()
   (interactive)
   (load-file user-init-file)
@@ -136,23 +136,7 @@
     (call-process "xdg-open" nil 0 nil file)
     (message "Opening %s done" file)))
 
-(defun setup-org-ui ()
-  (variable-pitch-mode 1)
-  (org-bullets-mode 1)
-  (dolist (face '((org-document-title 1.4 bold)
-                  (org-level-1 1.4 bold)
-                  (org-level-2 1.3 bold)
-                  (org-level-3 1.2 bold)
-                  (org-level-4 1.1 bold)
-                  (org-level-5 1.1 normal)
-                  (org-level-6 1.1 normal)
-                  (org-level-7 1.1 normal)
-                  (org-level-8 1.1 normal)))
-    (set-face-attribute (nth 0 face) nil
-                        :height (nth 1 face)
-                        :weight (nth 2 face))))
-
-;; PACKAGES
+;;; PACKAGES
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 (unless package-archive-contents
@@ -165,12 +149,18 @@
   :ensure t
   :config
   (setq modus-themes-mixed-fonts t
-        modus-themes-common-palette-overrides '(;(cursor "#dbc49b")
-                                                (cursor yellow-faint)
-                                                (fg-heading-1 yellow-cooler)
-                                                (fg-heading-2 maroon)
-                                                (fg-heading-3 indigo)
-                                                (fg-heading-4 olive)))
+        ;; modus-themes-org-blocks 'gray-background
+        ;; modus-themes-common-palette-overrides '((border-mode-line-active unspecified)
+        ;;                                         (border-mode-line-inactive unspecified))
+        modus-themes-headings '((1 . (1.4))
+                                (2 . (1.3))
+                                (3 . (1.2))
+                                (4 . (1.1)))
+        modus-vivendi-palette-overrides '((cursor yellow-faint)
+                                          (fg-heading-1 yellow-cooler)
+                                          (fg-heading-2 maroon)
+                                          (fg-heading-3 indigo)
+                                          (fg-heading-4 olive)))
   (load-theme 'modus-vivendi t))
 
 (use-package which-key
@@ -183,13 +173,21 @@
   :config
   (beacon-mode 1))
 
+(use-package gcmh
+  :ensure t
+  :init
+  (setq gcmh-idle-delay 10
+        gcmh-high-cons-threshold (* 16 1024 1024) ; 16mb
+        gcmh-verbose nil)
+  (add-hook 'emacs-startup-hook 'gcmh-mode))
+
 ;;; UTILITY EXTRAS
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory))
 (load-file (expand-file-name "extras/lisp.el" user-emacs-directory))
 (load-file (expand-file-name "extras/music.el" user-emacs-directory))
 (load-file (expand-file-name "extras/experimental.el" user-emacs-directory))
 
-;;; OTRAS COSITAS
+;;; COSITAS
 ;; https://config.phundrak.com/emacs.html
 ;; https://opensource.com/article/20/1/emacs-rpgs
 ;; https://github.com/zaeph/org-roll
