@@ -1,5 +1,5 @@
 (defvar my-font-mono "mononoki NF")
-(defvar my-font-prose "IBM Plex Serif")
+(defvar my-font-prose "DejaVu Serif") ; IBM Plex Serif
 (defvar my-font-size 160)
 (defconst emacs-tmp-dir
   (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
