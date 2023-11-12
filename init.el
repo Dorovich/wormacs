@@ -1,6 +1,6 @@
 (defvar my-font-mono "mononoki NF")
-(defvar my-font-prose "DejaVu Serif") ; IBM Plex Serif
-(defvar my-font-size 160)
+(defvar my-font-prose "Roboto Serif")
+(defvar my-font-size 165)
 (defconst emacs-tmp-dir
   (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
 
@@ -18,6 +18,7 @@
 (global-set-key (kbd "<mouse-8>") 'previous-buffer)
 (global-set-key (kbd "<mouse-9>") 'next-buffer)
 (global-set-key (kbd "C-x r C-f") 'recentf-open-files)
+(global-set-key (kbd "C-z") 'undo)
 
 ;;; SETTINGS
 (setq load-prefer-newer t
@@ -111,6 +112,7 @@
 ;; (display-time-mode 1)
 (fido-mode 1)
 (recentf-mode 1)
+(save-place-mode 1)
 
 (defalias 'list-buffers 'ibuffer)
 
@@ -152,7 +154,8 @@
         ;; modus-themes-org-blocks 'gray-background
         ;; modus-themes-common-palette-overrides '((border-mode-line-active unspecified)
         ;;                                         (border-mode-line-inactive unspecified))
-        modus-themes-headings '((1 . (1.4))
+        modus-themes-headings '((0 . (1.2))
+                                (1 . (1.4))
                                 (2 . (1.3))
                                 (3 . (1.2))
                                 (4 . (1.1)))
