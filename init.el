@@ -18,7 +18,7 @@
 (global-set-key (kbd "<mouse-8>") 'previous-buffer)
 (global-set-key (kbd "<mouse-9>") 'next-buffer)
 (global-set-key (kbd "C-x r C-f") 'recentf-open-files)
-(global-set-key (kbd "C-z") 'undo)
+;; (global-set-key (kbd "C-z") 'undo)
 
 ;;; SETTINGS
 (setq load-prefer-newer t
@@ -147,6 +147,14 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
+(use-package gcmh
+  :ensure t
+  :init
+  (setq gcmh-idle-delay 10
+        gcmh-high-cons-threshold (* 30 1024 1024) ; 30mb
+        gcmh-verbose nil)
+  (add-hook 'emacs-startup-hook 'gcmh-mode))
+
 (use-package modus-themes
   :ensure t
   :config
@@ -176,13 +184,12 @@
   :config
   (beacon-mode 1))
 
-(use-package gcmh
+(use-package undo-fu
   :ensure t
-  :init
-  (setq gcmh-idle-delay 10
-        gcmh-high-cons-threshold (* 16 1024 1024) ; 16mb
-        gcmh-verbose nil)
-  (add-hook 'emacs-startup-hook 'gcmh-mode))
+  :config
+  (global-unset-key (kbd "C-z"))
+  (global-set-key (kbd "C-z")   'undo-fu-only-undo)
+  (global-set-key (kbd "C-S-z") 'undo-fu-only-redo))
 
 ;;; UTILITY EXTRAS
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory))
