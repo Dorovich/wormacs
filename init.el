@@ -18,7 +18,6 @@
 (global-set-key (kbd "<mouse-8>") 'previous-buffer)
 (global-set-key (kbd "<mouse-9>") 'next-buffer)
 (global-set-key (kbd "C-x r C-f") 'recentf-open-files)
-;; (global-set-key (kbd "C-z") 'undo)
 
 ;;; SETTINGS
 (setq load-prefer-newer t
@@ -88,6 +87,8 @@
 	                             ("Emacs" (or
 		                               (name . "^\\*scratch\\*$")
 		                               (name . "^\\*Messages\\*$")))))
+      ;; MPC
+      mpc-browser-tags '(Artist Album)
       ;; ERC
       erc-server "irc.libera.chat"
       erc-nick "dorovich"
@@ -194,7 +195,6 @@
 ;;; UTILITY EXTRAS
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory))
 (load-file (expand-file-name "extras/lisp.el" user-emacs-directory))
-(load-file (expand-file-name "extras/music.el" user-emacs-directory))
 (load-file (expand-file-name "extras/experimental.el" user-emacs-directory))
 
 ;;; COSITAS
