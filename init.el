@@ -18,6 +18,7 @@
 (global-set-key (kbd "<mouse-8>") 'previous-buffer)
 (global-set-key (kbd "<mouse-9>") 'next-buffer)
 (global-set-key (kbd "C-x r C-f") 'recentf-open-files)
+(global-set-key (kbd "C-x c") 'comment-or-uncomment-region)
 
 ;;; SETTINGS
 (setq load-prefer-newer t
@@ -53,6 +54,11 @@
       fancy-splash-image (expand-file-name "pics/butterfly-hd.png" user-emacs-directory)
       display-time-format "%H:%M"
       scheme-program-name "csi -:c"
+      mouse-wheel-scroll-amount '(2
+                                  ((shift) . hscroll)
+                                  ((meta))
+                                  ((control meta) . global-text-scale)
+                                  ((control) . text-scale))
       ;; ORG
       org-image-actual-width nil
       org-pretty-entities t
@@ -70,6 +76,7 @@
       org-export-preserve-breaks t
       org-export-with-date nil
       org-export-time-stamp-file nil
+      org-export-headline-levels 5
       org-export-with-author nil
       org-image-actual-width 600
       org-redisplay-inline-images nil
@@ -105,10 +112,13 @@
               right-margin-width 1
               c-basic-offset 4)
 
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "e") #'dired-xdg-open))
+
 (global-auto-revert-mode 1)
 (show-paren-mode 1)
 (blink-cursor-mode 0)
-(set-fringe-mode 0)
+;; (set-fringe-mode 0)
 (delete-selection-mode 1)
 ;; (display-time-mode 1)
 (fido-mode 1)
@@ -117,6 +127,7 @@
 
 (defalias 'list-buffers 'ibuffer)
 
+(put 'upcase-region 'disabled nil)
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;;; HOOKS
@@ -131,7 +142,7 @@
   (load-file user-init-file)
   (load-file user-init-file))
 
-(defun dired-open-file ()
+(defun dired-xdg-open ()
   "In dired, open the file named on this line."
   (interactive)
   (let* ((file (dired-get-filename nil t)))
@@ -145,7 +156,8 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(unless (package-installed-p 'use-package)
+(unless (and (< emacs-major-version 29)
+             (package-installed-p 'use-package))
   (package-install 'use-package))
 
 (use-package gcmh
@@ -196,6 +208,7 @@
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory))
 (load-file (expand-file-name "extras/lisp.el" user-emacs-directory))
 (load-file (expand-file-name "extras/experimental.el" user-emacs-directory))
+(load-file (expand-file-name "extras/meow.el" user-emacs-directory))
 
 ;;; COSITAS
 ;; https://config.phundrak.com/emacs.html
