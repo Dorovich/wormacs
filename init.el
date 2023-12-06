@@ -138,6 +138,7 @@
 
 ;;; FUNCTIONS
 (defun reload-init-file ()
+  "Reload the user's init.el twice."
   (interactive)
   (load-file user-init-file)
   (load-file user-init-file))

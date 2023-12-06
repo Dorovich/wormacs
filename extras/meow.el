@@ -3,6 +3,11 @@
   (let ((current-prefix-arg -1))
     (call-interactively 'meow-find)))
 
+(defun meow-negative-till ()
+  (interactive)
+  (let ((current-prefix-arg -1))
+    (call-interactively 'meow-till)))
+
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty
         meow-expand-hint-counts nil)
@@ -78,6 +83,7 @@
    '("R" . meow-swap-grab)
    '("s" . meow-kill)
    '("t" . meow-till)
+   '("T" . meow-negative-till)
    ;; '("u" . meow-undo)
    ;; '("U" . meow-undo-in-selection)
    '("u" . undo-fu-only-undo)
