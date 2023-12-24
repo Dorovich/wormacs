@@ -13,3 +13,12 @@
 ;; (use-package vterm
 ;;   :ensure t
 ;;   :defer t)
+
+(use-package pdf-tools
+  :ensure t
+  :defer t
+  :mode "\\.pdf\\'"
+  :init (pdf-loader-install)
+  :config
+  (add-to-list 'revert-without-query ".pdf")
+  (add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1))))
